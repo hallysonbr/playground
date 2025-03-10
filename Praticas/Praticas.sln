@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.11.35219.272
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Praticas", "Praticas\Praticas.csproj", "{BED4B53D-87E8-46E7-8B01-D4A63E51D3CB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Praticas.Tests", "Praticas.Tests\Praticas.Tests.csproj", "{619698F5-1DC1-4408-A4A0-DAAFA02CD76E}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{BED4B53D-87E8-46E7-8B01-D4A63E51D3CB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BED4B53D-87E8-46E7-8B01-D4A63E51D3CB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BED4B53D-87E8-46E7-8B01-D4A63E51D3CB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BED4B53D-87E8-46E7-8B01-D4A63E51D3CB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{619698F5-1DC1-4408-A4A0-DAAFA02CD76E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{619698F5-1DC1-4408-A4A0-DAAFA02CD76E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{619698F5-1DC1-4408-A4A0-DAAFA02CD76E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{619698F5-1DC1-4408-A4A0-DAAFA02CD76E}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {EB85D80C-EE65-4836-ADBA-E2CC8ADB93B5}
+	EndGlobalSection
+EndGlobal
