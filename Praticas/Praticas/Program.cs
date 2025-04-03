@@ -1,4 +1,6 @@
 ﻿// See https://aka.ms/new-console-template for more information
+using Praticas.ConcreteBuilders;
+using Praticas.Directors;
 using Praticas.Enums;
 using Praticas.Factories;
 
@@ -8,11 +10,13 @@ char option;
 while (true)
 {
     //MenuPessoa();
-    MenuStudentFactory();
+    //MenuStudentFactory();
+    MenuMovie();
     try
     {
-       //Pessoa();
-       StudentFactory();
+        //Pessoa();
+        //StudentFactory();
+        MovieBuilder();
     }
     catch (Exception ex)
     {
@@ -64,4 +68,33 @@ void StudentFactory()
     var student = studentFactoryMethod.CreateStudent((StudentTypeEnum)typeOption);
     Console.WriteLine(student.Assign());
     Console.ReadKey();
+}
+
+void MenuMovie()
+{
+    Console.Clear();
+    Console.WriteLine("Escolha uma das opções abaixo:");
+    Console.WriteLine("1. Criar Filme");
+    value = Console.Read();
+    option = Convert.ToChar(value);
+}
+
+void MovieBuilder()
+{
+    if (char.IsLetterOrDigit(option))
+    {
+        if (option != '1') return;
+
+        var cinema = new Cinema(new CinemarkBuilder());
+        cinema.InitMovie();
+        var cinemarkMovie = cinema.GetMovie();        
+
+        cinema = new Cinema(new CinepolisBuilder());
+        cinema.InitMovie();
+        var cinepolisMovie = cinema.GetMovie();
+
+        Console.WriteLine(cinemarkMovie.ShowMovie());
+        Console.WriteLine(cinepolisMovie.ShowMovie());
+        Console.ReadKey();
+    }
 }
