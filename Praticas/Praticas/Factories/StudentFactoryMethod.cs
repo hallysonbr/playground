@@ -1,7 +1,7 @@
 ﻿using Praticas.Abstracts;
 using Praticas.Enums;
 
-namespace Praticas.Factory
+namespace Praticas.Factories
 {
     public abstract class StudentFactoryMethod
     {

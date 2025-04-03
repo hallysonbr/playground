@@ -1,8 +1,7 @@
-﻿using Praticas.Enums;
-using Praticas.Interfaces;
+﻿using Praticas.Interfaces;
 using Praticas.Services;
 
-namespace Praticas.Factory
+namespace Praticas.Factories
 {
     public static class PessoaFactory
     {

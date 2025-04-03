@@ -1,6 +1,6 @@
 ﻿// See https://aka.ms/new-console-template for more information
 using Praticas.Enums;
-using Praticas.Factory;
+using Praticas.Factories;
 
 int value;
 char option;

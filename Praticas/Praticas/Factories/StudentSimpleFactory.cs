@@ -1,5 +1,4 @@
-﻿
-namespace Praticas.Factory
+﻿namespace Praticas.Factories
 {
     public class StudentSimpleFactory
     {

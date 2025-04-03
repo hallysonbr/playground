@@ -2,15 +2,15 @@
 using Praticas.Enums;
 using System.Text;
 
-namespace Praticas.Concretes
+namespace Praticas.ConcreteFactories
 {
-    public class PostGraduatedStudentB : Student
+    public class GraduatedStudentB : Student
     {
-        protected override StudentTypeEnum Type => StudentTypeEnum.PostGraduated;
+        protected override StudentTypeEnum Type => StudentTypeEnum.Graduated;
         
-        public PostGraduatedStudentB()
+        public GraduatedStudentB()
         {
-            Name = "Tony Stark Student";
+            Name = "Bruce Wayne Student";
             RegisterCode = new Random().Next(1000, 9999).ToString();
         }
 

@@ -1,8 +1,8 @@
 ﻿using Praticas.Abstracts;
-using Praticas.Concretes;
+using Praticas.ConcreteFactories;
 using Praticas.Enums;
 
-namespace Praticas.Factory
+namespace Praticas.Factories
 {
     public class StudentFilialBFactory : StudentFactoryMethod
     {
