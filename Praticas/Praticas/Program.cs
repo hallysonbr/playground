@@ -13,13 +13,15 @@ while (true)
     //MenuPessoa();
     //MenuStudentFactory();
     //MenuMovie();
-    MenuSoldier();
+    //MenuSoldier();
+    MenuSingleton();
     try
     {
         //Pessoa();
         //StudentFactory();
         //MovieBuilder();
-        SoldierPrototype();
+        //SoldierPrototype();
+        Singleton();
     }
     catch (Exception ex)
     {
@@ -165,6 +167,41 @@ void SoldierPrototype()
 
         Console.WriteLine("Clone 2");
         Console.WriteLine($"Nome: {clone2.Name} - Arma: {clone2.Gun} - Acessório: {clone2.Acessory.Name}");
+
+        Console.ReadKey();
+    }
+}
+
+void MenuSingleton()
+{
+    Console.Clear();
+    Console.WriteLine("Escolha uma das opções abaixo:");
+    Console.WriteLine("1. Singleton");
+    value = Console.Read();
+    option = Convert.ToChar(value);
+}
+
+void Singleton()
+{
+    if (char.IsLetterOrDigit(option))
+    {
+        if (option != '1') return;
+
+        Console.WriteLine("Criando uma instância do Singleton...");
+        var instance1 = Praticas.Singleton.Singleton.Instance;
+
+        Console.WriteLine("Criando uma segunda instância do Singleton...");
+        var instance2 = Praticas.Singleton.Singleton.Instance;
+
+        if (instance1 == instance2) Console.WriteLine("Instancias iguais!");
+        else Console.WriteLine("Instancias diferentes!");
+
+
+        Console.WriteLine("Criando uma instância do Singleton Thread Safe...");
+        Parallel.Invoke(
+            () => { Console.WriteLine($"Thread 1: {Praticas.Singleton.Singleton.InstanceTheadSafe}"); },
+            () => { Console.WriteLine($"Thread 2: {Praticas.Singleton.Singleton.InstanceTheadSafe}"); }
+        );
 
         Console.ReadKey();
     }
