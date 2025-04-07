@@ -1,9 +1,11 @@
 ﻿// See https://aka.ms/new-console-template for more information
+using Praticas.Adapters;
 using Praticas.ConcreteBuilders;
 using Praticas.ConcretePrototypes;
 using Praticas.Directors;
 using Praticas.Enums;
 using Praticas.Factories;
+using Praticas.Targets;
 
 int value;
 char option;
@@ -14,14 +16,16 @@ while (true)
     //MenuStudentFactory();
     //MenuMovie();
     //MenuSoldier();
-    MenuSingleton();
+    //MenuSingleton();
+    MenuHighSchoolStudent();
     try
     {
         //Pessoa();
         //StudentFactory();
         //MovieBuilder();
         //SoldierPrototype();
-        Singleton();
+        //Singleton();
+        HighSchoolStudentAdapter();
     }
     catch (Exception ex)
     {
@@ -203,6 +207,39 @@ void Singleton()
             () => { Console.WriteLine($"Thread 2: {Praticas.Singleton.Singleton.InstanceTheadSafe}"); }
         );
 
+        Console.ReadKey();
+    }
+}
+
+void MenuHighSchoolStudent()
+{
+    Console.Clear();
+    Console.WriteLine("Escolha uma das opções abaixo:");
+    Console.WriteLine("1. Processar mensalidade");
+    value = Console.Read();
+    option = Convert.ToChar(value);
+}
+
+void HighSchoolStudentAdapter()
+{
+    if (char.IsLetterOrDigit(option))
+    {
+        if (option != '1') return;
+
+        var students = new string[4, 4]
+        {
+            { Guid.NewGuid().ToString(), "João", "Matemática", "100" },
+            { Guid.NewGuid().ToString(), "Maria", "Física", "200" },
+            { Guid.NewGuid().ToString(), "Joana", "Português", "300" },
+            { Guid.NewGuid().ToString(), "José", "Química", "400" }
+        };
+
+        Console.WriteLine("Processando mensalidade...");
+
+        IHighSchoolStudentTarget studentAdapter = new HighSchoolStudentAdapter();
+        studentAdapter.ProcessMonthlyFee(students);
+
+        Console.WriteLine("Mensalidades processadas!");
         Console.ReadKey();
     }
 }
