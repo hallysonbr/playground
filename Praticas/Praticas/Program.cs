@@ -1,10 +1,13 @@
 ﻿// See https://aka.ms/new-console-template for more information
 using Praticas.Adapters;
 using Praticas.ConcreteBuilders;
+using Praticas.ConcreteImplementors;
 using Praticas.ConcretePrototypes;
 using Praticas.Directors;
 using Praticas.Enums;
 using Praticas.Factories;
+using Praticas.Models;
+using Praticas.RefinedAbstractions;
 using Praticas.Targets;
 
 int value;
@@ -17,7 +20,8 @@ while (true)
     //MenuMovie();
     //MenuSoldier();
     //MenuSingleton();
-    MenuHighSchoolStudent();
+    //MenuHighSchoolStudent();
+    MenuEmployee();
     try
     {
         //Pessoa();
@@ -25,7 +29,8 @@ while (true)
         //MovieBuilder();
         //SoldierPrototype();
         //Singleton();
-        HighSchoolStudentAdapter();
+        //HighSchoolStudentAdapter();
+        EmployeeBridge();
     }
     catch (Exception ex)
     {
@@ -240,6 +245,51 @@ void HighSchoolStudentAdapter()
         studentAdapter.ProcessMonthlyFee(students);
 
         Console.WriteLine("Mensalidades processadas!");
+        Console.ReadKey();
+    }
+}
+
+void MenuEmployee()
+{
+    Console.Clear();
+    Console.WriteLine("Escolha uma das opções abaixo:");
+    Console.WriteLine("1. Gravar Arquivo json");
+    Console.WriteLine("2. Gravar Arquivo xml");
+    value = Console.Read();
+    option = Convert.ToChar(value);
+}
+
+void EmployeeBridge()
+{
+    if (char.IsLetterOrDigit(option))
+    {
+        if (option != '1' && option != '2') return;
+
+        CalculateSalary calculateSalary;
+       
+        switch (option)
+        {
+            case '1':
+                calculateSalary = new CalculateSalary(new WriteJson());
+                break;
+            case '2':
+                calculateSalary = new CalculateSalary(new WriteXml());
+                break;
+            default:
+                calculateSalary = new CalculateSalary(new WriteJson());
+                break;
+        }
+
+        var employee = new Employee
+        {
+            Id = Guid.NewGuid(),
+            Name = "João",
+            BaseSalary = 1000,
+            Gratification = option == '1' ? 700 : 800
+        };
+
+        calculateSalary.ProcessSalary(employee);
+
         Console.ReadKey();
     }
 }
