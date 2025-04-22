@@ -1,11 +1,13 @@
 ﻿// See https://aka.ms/new-console-template for more information
 using Praticas.Adapters;
+using Praticas.Composites;
 using Praticas.ConcreteBuilders;
 using Praticas.ConcreteImplementors;
 using Praticas.ConcretePrototypes;
 using Praticas.Directors;
 using Praticas.Enums;
 using Praticas.Factories;
+using Praticas.Leafs;
 using Praticas.Models;
 using Praticas.RefinedAbstractions;
 using Praticas.Targets;
@@ -21,7 +23,8 @@ while (true)
     //MenuSoldier();
     //MenuSingleton();
     //MenuHighSchoolStudent();
-    MenuEmployee();
+    //MenuEmployee();
+    MenuWorkingHours();
     try
     {
         //Pessoa();
@@ -30,7 +33,8 @@ while (true)
         //SoldierPrototype();
         //Singleton();
         //HighSchoolStudentAdapter();
-        EmployeeBridge();
+        //EmployeeBridge();
+        WorkingHoursComposite();
     }
     catch (Exception ex)
     {
@@ -290,6 +294,43 @@ void EmployeeBridge()
 
         calculateSalary.ProcessSalary(employee);
 
+        Console.ReadKey();
+    }
+}
+
+void MenuWorkingHours()
+{
+    Console.Clear();
+    Console.WriteLine("Escolha uma das opções abaixo:");
+    Console.WriteLine("1. Gerar Horas Trabalhadas por Departamento");
+    value = Console.Read();
+    option = Convert.ToChar(value);
+}
+
+void WorkingHoursComposite()
+{
+    if (char.IsLetterOrDigit(option))
+    {
+        if (option != '1') return;
+
+        var organization = new Organization { Name = "Empresa X" };
+
+        var departamentIT = new Organization { Name = "Departamento de TI" };
+
+        departamentIT.Add(new WorkingEmployee { Id = Guid.NewGuid(), Name = "João", Hours = 8 });
+        departamentIT.Add(new WorkingEmployee { Id = Guid.NewGuid(), Name = "Maria", Hours = 12 });
+        departamentIT.Add(new WorkingEmployee { Id = Guid.NewGuid(), Name = "Joana", Hours = 10 });
+
+        var departamentHR = new Organization { Name = "Departamento de RH" };
+
+        departamentHR.Add(new WorkingEmployee { Id = Guid.NewGuid(), Name = "Jessé", Hours = 6 });
+        departamentHR.Add(new WorkingEmployee { Id = Guid.NewGuid(), Name = "Alberto", Hours = 9 });
+        departamentHR.Add(new WorkingEmployee { Id = Guid.NewGuid(), Name = "Cassia", Hours = 5 });
+
+        organization.Add(departamentIT);
+        organization.Add(departamentHR);
+        organization.GetWorkingHours();
+        
         Console.ReadKey();
     }
 }
