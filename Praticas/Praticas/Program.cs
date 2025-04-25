@@ -8,10 +8,12 @@ using Praticas.ConcreteImplementors;
 using Praticas.ConcretePrototypes;
 using Praticas.Directors;
 using Praticas.Enums;
+using Praticas.Facades;
 using Praticas.Factories;
 using Praticas.Leafs;
 using Praticas.Models;
 using Praticas.RefinedAbstractions;
+using Praticas.Subsystems;
 using Praticas.Targets;
 
 int value;
@@ -27,7 +29,9 @@ while (true)
     //MenuHighSchoolStudent();
     //MenuEmployee();
     //MenuWorkingHours();
-    MenuCar();
+    //MenuCar();
+    MenuLoan();
+
     try
     {
         //Pessoa();
@@ -38,7 +42,8 @@ while (true)
         //HighSchoolStudentAdapter();
         //EmployeeBridge();
         //WorkingHoursComposite();
-        CarDecorator();
+        //CarDecorator();
+        LoanFacade();
     }
     catch (Exception ex)
     {
@@ -373,6 +378,31 @@ void CarDecorator()
         Console.WriteLine($"Preço do carro: {sportCar.Price()}");
         Console.WriteLine($"Opcionais do carro: {sportCar.Optionals()}");
 
+        Console.ReadKey();
+    }
+}
+
+void MenuLoan()
+{
+    Console.Clear();
+    Console.WriteLine("Escolha uma das opções abaixo:");
+    Console.WriteLine("1. Conceder Emprestimo");
+    value = Console.Read();
+    option = Convert.ToChar(value);
+}
+
+void LoanFacade()
+{
+    if (char.IsLetterOrDigit(option))
+    {
+        if (option != '1') return;
+        
+        var loan = new GrantLoanFacade();
+        var client = new Client("João");
+
+        var result = loan.GrantLoan(client, 1500000.00);
+
+        Console.WriteLine($"The loan requested for {client.Name} was { (result ? "Approved" : "Rejected") }");
         Console.ReadKey();
     }
 }
