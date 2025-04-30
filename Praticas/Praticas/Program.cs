@@ -13,6 +13,7 @@ using Praticas.Factories;
 using Praticas.Flyweights;
 using Praticas.Leafs;
 using Praticas.Models;
+using Praticas.Proxies;
 using Praticas.RefinedAbstractions;
 using Praticas.Subsystems;
 using Praticas.Targets;
@@ -32,7 +33,8 @@ while (true)
     //MenuWorkingHours();
     //MenuCar();
     //MenuLoan();
-    MenuShape();
+    //MenuShape();
+    MenuSharedFolder();
 
     try
     {
@@ -46,7 +48,8 @@ while (true)
         //WorkingHoursComposite();
         //CarDecorator();
         //LoanFacade();
-        ShapeFlyweight();
+        //ShapeFlyweight();
+        SharedFolderProxy();
     }
     catch (Exception ex)
     {
@@ -432,6 +435,42 @@ void ShapeFlyweight()
             circle.SetColor(colors[i % colors.Length]);
             circle.Draw();
         }
+        Console.ReadKey();
+    }
+}
+
+void MenuSharedFolder()
+{
+    Console.Clear();
+    Console.WriteLine("Escolha uma das opções abaixo:");
+    Console.WriteLine("1. Acessar pasta compartilhada.");
+    value = Console.Read();
+    option = Convert.ToChar(value);
+}
+
+void SharedFolderProxy()
+{
+    if (char.IsLetterOrDigit(option))
+    {
+        if (option != '1') return;
+
+        Console.WriteLine("Acessando pasta compartilhada...");
+
+        Console.WriteLine("Perfil Desenvolvedor tentanto acessar a pasta...");
+        var user1 = new User("João", "123456", "desenvolvedor");
+        var sharedFolder1 = new SharedFolderProxy(user1);
+        sharedFolder1.ReadAndWrite();
+
+        Console.WriteLine("Perfil Visitante tentanto acessar a pasta...");
+        var user2 = new User("Maria", "654321", "visitante");
+        var sharedFolder2 = new SharedFolderProxy(user2);
+        sharedFolder2.ReadAndWrite();
+
+        Console.WriteLine("Perfil Administrador tentanto acessar a pasta...");
+        var user3 = new User("José", "789456", "admin");
+        var sharedFolder3 = new SharedFolderProxy(user3);
+        sharedFolder3.ReadAndWrite();
+
         Console.ReadKey();
     }
 }
