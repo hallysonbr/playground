@@ -10,6 +10,7 @@ using Praticas.Directors;
 using Praticas.Enums;
 using Praticas.Facades;
 using Praticas.Factories;
+using Praticas.Flyweights;
 using Praticas.Leafs;
 using Praticas.Models;
 using Praticas.RefinedAbstractions;
@@ -30,7 +31,8 @@ while (true)
     //MenuEmployee();
     //MenuWorkingHours();
     //MenuCar();
-    MenuLoan();
+    //MenuLoan();
+    MenuShape();
 
     try
     {
@@ -43,7 +45,8 @@ while (true)
         //EmployeeBridge();
         //WorkingHoursComposite();
         //CarDecorator();
-        LoanFacade();
+        //LoanFacade();
+        ShapeFlyweight();
     }
     catch (Exception ex)
     {
@@ -403,6 +406,32 @@ void LoanFacade()
         var result = loan.GrantLoan(client, 1500000.00);
 
         Console.WriteLine($"The loan requested for {client.Name} was { (result ? "Approved" : "Rejected") }");
+        Console.ReadKey();
+    }
+}
+
+void MenuShape()
+{
+    Console.Clear();
+    Console.WriteLine("Escolha uma das opções abaixo:");
+    Console.WriteLine("1. Criar circulos de variadas cores.");
+    value = Console.Read();
+    option = Convert.ToChar(value);
+}
+
+void ShapeFlyweight()
+{
+    if (char.IsLetterOrDigit(option))
+    {
+        if (option != '1') return;
+
+        var colors = new[] { "Red", "Green", "Blue", "Black", "White" };
+        for (int i = 0; i < 10; i++)
+        {
+            var circle = (Circle)ShapeFactory.GetShape("circle");
+            circle.SetColor(colors[i % colors.Length]);
+            circle.Draw();
+        }
         Console.ReadKey();
     }
 }
