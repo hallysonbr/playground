@@ -4,6 +4,7 @@ using Praticas.Composites;
 using Praticas.ConcreteBuilders;
 using Praticas.ConcreteComponents;
 using Praticas.ConcreteDecorators;
+using Praticas.ConcreteHandlers;
 using Praticas.ConcreteImplementors;
 using Praticas.ConcretePrototypes;
 using Praticas.Directors;
@@ -34,7 +35,8 @@ while (true)
     //MenuCar();
     //MenuLoan();
     //MenuShape();
-    MenuSharedFolder();
+    //MenuSharedFolder();
+    MenuDayOff();
 
     try
     {
@@ -49,7 +51,8 @@ while (true)
         //CarDecorator();
         //LoanFacade();
         //ShapeFlyweight();
-        SharedFolderProxy();
+        //SharedFolderProxy();
+        DayOffChainOfResponsibility();
     }
     catch (Exception ex)
     {
@@ -470,6 +473,38 @@ void SharedFolderProxy()
         var user3 = new User("José", "789456", "admin");
         var sharedFolder3 = new SharedFolderProxy(user3);
         sharedFolder3.ReadAndWrite();
+
+        Console.ReadKey();
+    }
+}
+
+void MenuDayOff()
+{
+    Console.Clear();
+    Console.WriteLine("Escolha uma das opções abaixo:");
+    Console.WriteLine("1. Solicitar dias de licença.");
+    value = Console.Read();
+    option = Convert.ToChar(value);
+}
+
+void DayOffChainOfResponsibility()
+{
+    if (char.IsLetterOrDigit(option))
+    {
+        if (option != '1') return;
+
+        ProjectManager projectManager = new ();
+        TeamSupervisor teamSupervisor = new();
+        HRDepartment hRDepartment = new();
+
+        projectManager
+            .SetNext(teamSupervisor)
+            .SetNext(hRDepartment);
+
+        projectManager.Handle("Ana", 5);
+        projectManager.Handle("João", 10);
+        projectManager.Handle("Maria", 20);
+        projectManager.Handle("Alberto", 40);
 
         Console.ReadKey();
     }
