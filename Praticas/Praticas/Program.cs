@@ -1,5 +1,6 @@
 ﻿// See https://aka.ms/new-console-template for more information
 using Praticas.Adapters;
+using Praticas.Commands;
 using Praticas.Composites;
 using Praticas.ConcreteBuilders;
 using Praticas.ConcreteComponents;
@@ -36,7 +37,8 @@ while (true)
     //MenuLoan();
     //MenuShape();
     //MenuSharedFolder();
-    MenuDayOff();
+    //MenuDayOff();
+    MenuRestaurant();
 
     try
     {
@@ -52,7 +54,8 @@ while (true)
         //LoanFacade();
         //ShapeFlyweight();
         //SharedFolderProxy();
-        DayOffChainOfResponsibility();
+        //DayOffChainOfResponsibility();
+        RestaurantCommand();
     }
     catch (Exception ex)
     {
@@ -505,6 +508,35 @@ void DayOffChainOfResponsibility()
         projectManager.Handle("João", 10);
         projectManager.Handle("Maria", 20);
         projectManager.Handle("Alberto", 40);
+
+        Console.ReadKey();
+    }
+}
+
+void MenuRestaurant()
+{
+    Console.Clear();
+    Console.WriteLine("Escolha uma das opções abaixo:");
+    Console.WriteLine("1. Fazer pedido.");
+    value = Console.Read();
+    option = Convert.ToChar(value);
+}
+
+void RestaurantCommand()
+{
+    if (char.IsLetterOrDigit(option))
+    {
+        if (option != '1') return;
+
+        var chef = new Chef();
+        
+        var order = new Order(chef, "Meal");
+        var waiter = new Waiter(order);
+        waiter.Execute();
+
+        order = new Order(chef, "Dessert");
+        waiter = new Waiter(order);
+        waiter.Execute();
 
         Console.ReadKey();
     }
