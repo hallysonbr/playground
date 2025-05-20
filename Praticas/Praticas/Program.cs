@@ -19,6 +19,7 @@ using Praticas.Interpreters.Contexts;
 using Praticas.Iterators;
 using Praticas.Leafs;
 using Praticas.Mediators;
+using Praticas.Mementos;
 using Praticas.Models;
 using Praticas.Proxies;
 using Praticas.RefinedAbstractions;
@@ -46,7 +47,8 @@ while (true)
     //MenuRestaurant();
     //MenuDate();
     //MenuClient();
-    MenuMessageGroup();
+    //MenuMessageGroup();
+    MenuCalculator();
 
     
     try
@@ -67,7 +69,8 @@ while (true)
         //RestaurantCommand();
         //DateInterpreter();
         //ClientIterator();
-        MessageGroupMediator();
+        //MessageGroupMediator();
+        CalculatorMemento();
     }
     catch (Exception ex)
     {
@@ -673,6 +676,47 @@ void MessageGroupMediator()
         user2.Send("Oi, João!");
         user3.Send("Oi, Maria!");
 
+        Console.ReadKey();
+    }
+}
+
+void MenuCalculator()
+{
+    Console.Clear();
+    Console.WriteLine("Escolha uma das opções abaixo:");
+    Console.WriteLine("1. Calcular a soma de dois números e armazenar o estado");
+    value = Console.Read();
+    option = Convert.ToChar(value);
+}
+
+void CalculatorMemento()
+{
+    if (char.IsLetterOrDigit(option))
+    {
+        if (option != '1') return;
+
+        Console.WriteLine("Calculando a soma de dois números e armazenando o estado...");
+
+        var calculator = new Calculator();
+        calculator.SetFirstNumber(10);
+        calculator.SetSecondNumber(20);
+
+        Console.WriteLine($"Estado 1: {calculator.GetCalculationResult()}");
+
+        var memento = calculator.BackupLastCalculation();
+
+        Console.WriteLine("Calculando a soma de dois números e armazenando o estado...");
+
+        calculator.SetFirstNumber(30);
+        calculator.SetSecondNumber(40);
+
+        Console.WriteLine($"Estado 2: {calculator.GetCalculationResult()}");
+
+        Console.WriteLine("Restaurando o estado anterior...");
+
+        calculator.RestoreLastCalculation(memento);
+
+        Console.WriteLine($"Estado restaurado: {calculator.GetCalculationResult()}");
         Console.ReadKey();
     }
 }
