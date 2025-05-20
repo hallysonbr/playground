@@ -18,6 +18,7 @@ using Praticas.Interpreters.ConcreteExpressions;
 using Praticas.Interpreters.Contexts;
 using Praticas.Iterators;
 using Praticas.Leafs;
+using Praticas.Mediators;
 using Praticas.Models;
 using Praticas.Proxies;
 using Praticas.RefinedAbstractions;
@@ -44,7 +45,9 @@ while (true)
     //MenuDayOff();
     //MenuRestaurant();
     //MenuDate();
-    MenuClient();
+    //MenuClient();
+    MenuMessageGroup();
+
     
     try
     {
@@ -63,7 +66,8 @@ while (true)
         //DayOffChainOfResponsibility();
         //RestaurantCommand();
         //DateInterpreter();
-        ClientIterator();
+        //ClientIterator();
+        MessageGroupMediator();
     }
     catch (Exception ex)
     {
@@ -471,17 +475,17 @@ void SharedFolderProxy()
         Console.WriteLine("Acessando pasta compartilhada...");
 
         Console.WriteLine("Perfil Desenvolvedor tentanto acessar a pasta...");
-        var user1 = new User("João", "123456", "desenvolvedor");
+        var user1 = new Praticas.Proxies.User("João", "123456", "desenvolvedor");
         var sharedFolder1 = new SharedFolderProxy(user1);
         sharedFolder1.ReadAndWrite();
 
         Console.WriteLine("Perfil Visitante tentanto acessar a pasta...");
-        var user2 = new User("Maria", "654321", "visitante");
+        var user2 = new Praticas.Proxies.User("Maria", "654321", "visitante");
         var sharedFolder2 = new SharedFolderProxy(user2);
         sharedFolder2.ReadAndWrite();
 
         Console.WriteLine("Perfil Administrador tentanto acessar a pasta...");
-        var user3 = new User("José", "789456", "admin");
+        var user3 = new Praticas.Proxies.User("José", "789456", "admin");
         var sharedFolder3 = new SharedFolderProxy(user3);
         sharedFolder3.ReadAndWrite();
 
@@ -635,6 +639,39 @@ void ClientIterator()
         {
             Console.WriteLine($"Nome: {client.Name}, Id: {client.Id}");
         }
+
+        Console.ReadKey();
+    }
+}
+
+void MenuMessageGroup()
+{
+    Console.Clear();
+    Console.WriteLine("Escolha uma das opções abaixo:");
+    Console.WriteLine("1. Iniciar conversas no grupo");
+    value = Console.Read();
+    option = Convert.ToChar(value);
+}
+
+void MessageGroupMediator()
+{
+    if (char.IsLetterOrDigit(option))
+    {
+        if (option != '1') return;
+
+        var group = new ConcreteMessageGroupMediator();
+
+        var user1 = new ConcreteUser(group, "João");
+        var user2 = new ConcreteUser(group, "Maria");
+        var user3 = new ConcreteUser(group, "José");
+
+        group.RegisterUser(user1);
+        group.RegisterUser(user2);
+        group.RegisterUser(user3);
+
+        user1.Send("Olá, pessoal!");
+        user2.Send("Oi, João!");
+        user3.Send("Oi, Maria!");
 
         Console.ReadKey();
     }
