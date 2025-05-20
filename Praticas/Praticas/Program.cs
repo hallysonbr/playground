@@ -16,6 +16,7 @@ using Praticas.Flyweights;
 using Praticas.Interpreters.AbstractExpressions;
 using Praticas.Interpreters.ConcreteExpressions;
 using Praticas.Interpreters.Contexts;
+using Praticas.Iterators;
 using Praticas.Leafs;
 using Praticas.Models;
 using Praticas.Proxies;
@@ -42,7 +43,8 @@ while (true)
     //MenuSharedFolder();
     //MenuDayOff();
     //MenuRestaurant();
-    MenuDate();
+    //MenuDate();
+    MenuClient();
     
     try
     {
@@ -60,7 +62,8 @@ while (true)
         //SharedFolderProxy();
         //DayOffChainOfResponsibility();
         //RestaurantCommand();
-        DateInterpreter();
+        //DateInterpreter();
+        ClientIterator();
     }
     catch (Exception ex)
     {
@@ -415,7 +418,7 @@ void LoanFacade()
         if (option != '1') return;
         
         var loan = new GrantLoanFacade();
-        var client = new Client("João");
+        var client = new Praticas.Subsystems.Client("João");
 
         var result = loan.GrantLoan(client, 1500000.00);
 
@@ -599,6 +602,40 @@ void DateInterpreter()
         expressions.ForEach(x => x.Interpret(context));
 
         Console.WriteLine($"Data na expressão selecionada: {context.Expression}");
+        Console.ReadKey();
+    }
+}
+
+void MenuClient()
+{
+    Console.Clear();
+    Console.WriteLine("Escolha uma das opções abaixo:");
+    Console.WriteLine("1. Criar Cliente com Iterator");
+    value = Console.Read();
+    option = Convert.ToChar(value);
+}
+
+void ClientIterator()
+{
+    if (char.IsLetterOrDigit(option))
+    {
+        if (option != '1') return;
+
+        var collection = new ConcreteCollection();
+
+        collection.Add(new Praticas.Iterators.Client(1, "João"));
+        collection.Add(new Praticas.Iterators.Client(2, "Maria"));
+        collection.Add(new Praticas.Iterators.Client(3, "José"));
+
+        var iterator = collection.CreateIterator();
+
+        Console.WriteLine("Iterando sobre os clientes:");
+
+        for (var client = iterator.First(); !iterator.IsDone; client = iterator.Next())
+        {
+            Console.WriteLine($"Nome: {client.Name}, Id: {client.Id}");
+        }
+
         Console.ReadKey();
     }
 }
