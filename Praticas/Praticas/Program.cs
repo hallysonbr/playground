@@ -25,6 +25,7 @@ using Praticas.Observers;
 using Praticas.Proxies;
 using Praticas.RefinedAbstractions;
 using Praticas.States;
+using Praticas.Strategies;
 using Praticas.Subsystems;
 using Praticas.Targets;
 
@@ -52,7 +53,8 @@ while (true)
     //MenuMessageGroup();
     //MenuCalculator();
     //MenuNotification();
-    MenuAtmMachine();
+    //MenuAtmMachine();
+    MenuTransportation();
 
     
     try
@@ -76,7 +78,8 @@ while (true)
         //MessageGroupMediator();
         //CalculatorMemento();
         //NotificationObserver();
-        AtmMachineState();
+        //AtmMachineState();
+        TransportationStrategy();
     }
     catch (Exception ex)
     {
@@ -392,14 +395,14 @@ void CarDecorator()
     {
         if (option != '1') return;
 
-        var car = new Car();
+        var car = new Praticas.ConcreteComponents.Car();
         Console.WriteLine("Criando um carro versão básica");
         Console.WriteLine($"Preço do carro: { car.Price() }");
         Console.WriteLine($"Opcionais do carro: { car.Optionals() }");
 
         Console.WriteLine("-----Aplicando o Padrão Decorator-----");
 
-        var car2 = new Car();
+        var car2 = new Praticas.ConcreteComponents.Car();
         var confortCar = new ConfortCarDecorator(car2);
 
         Console.WriteLine("Adicionando o pacote confort");
@@ -791,6 +794,30 @@ void AtmMachineState()
         atmMachine.InsertCard();
         atmMachine.EjectCard();
 
+        Console.ReadKey();
+    }
+}
+
+void MenuTransportation()
+{
+    Console.Clear();
+    Console.WriteLine("Escolha uma das opções para sua viagem:");
+    Console.WriteLine("1. Carro Particular");
+    Console.WriteLine("2. Táxi");
+    Console.WriteLine("3. Avião");
+    value = Console.Read();
+    option = Convert.ToChar(value);
+}
+
+void TransportationStrategy()
+{
+    if (char.IsLetterOrDigit(option))
+    {
+        if (option != '1' && option != '2' && option != '3') return;
+
+        var context = new TrasnportationOptionContext();
+        context.DefineStrategy(option);
+        context.ChooseTransportation("João");
         Console.ReadKey();
     }
 }
