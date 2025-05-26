@@ -28,6 +28,7 @@ using Praticas.States;
 using Praticas.Strategies;
 using Praticas.Subsystems;
 using Praticas.Targets;
+using Praticas.TemplateMethods;
 
 int value;
 char option;
@@ -54,7 +55,8 @@ while (true)
     //MenuCalculator();
     //MenuNotification();
     //MenuAtmMachine();
-    MenuTransportation();
+    //MenuTransportation();
+    MenuVideoPlayer();
 
     
     try
@@ -79,7 +81,8 @@ while (true)
         //CalculatorMemento();
         //NotificationObserver();
         //AtmMachineState();
-        TransportationStrategy();
+        //TransportationStrategy();
+        VideoPlayerTemplateMethod();
     }
     catch (Exception ex)
     {
@@ -818,6 +821,39 @@ void TransportationStrategy()
         var context = new TrasnportationOptionContext();
         context.DefineStrategy(option);
         context.ChooseTransportation("João");
+        Console.ReadKey();
+    }
+}
+
+void MenuVideoPlayer()
+{
+    Console.Clear();
+    Console.WriteLine("Escolha uma das opções para sua viagem:");
+    Console.WriteLine("1. Executar Template Method");
+    value = Console.Read();
+    option = Convert.ToChar(value);
+}
+
+void VideoPlayerTemplateMethod()
+{
+    if (char.IsLetterOrDigit(option))
+    {
+        if (option != '1') return;
+
+        Console.WriteLine("-----Video Player - Video MP4 ---------");
+
+        VideoPlayer videoPlayer = new Mp4Video();
+
+        videoPlayer.PlayVideo();
+
+        Console.WriteLine("\n");
+
+        Console.WriteLine("-----Video Player - Video MKV ---------");
+
+        videoPlayer = new MkvVideo();
+
+        videoPlayer.PlayVideo();
+
         Console.ReadKey();
     }
 }
