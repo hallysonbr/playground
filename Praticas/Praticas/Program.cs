@@ -29,6 +29,7 @@ using Praticas.Strategies;
 using Praticas.Subsystems;
 using Praticas.Targets;
 using Praticas.TemplateMethods;
+using Praticas.Visitors;
 
 int value;
 char option;
@@ -56,7 +57,8 @@ while (true)
     //MenuNotification();
     //MenuAtmMachine();
     //MenuTransportation();
-    MenuVideoPlayer();
+    //MenuVideoPlayer();
+    MenuStore();
 
     
     try
@@ -82,7 +84,8 @@ while (true)
         //NotificationObserver();
         //AtmMachineState();
         //TransportationStrategy();
-        VideoPlayerTemplateMethod();
+        //VideoPlayerTemplateMethod();
+        StoreVisitor();
     }
     catch (Exception ex)
     {
@@ -828,7 +831,7 @@ void TransportationStrategy()
 void MenuVideoPlayer()
 {
     Console.Clear();
-    Console.WriteLine("Escolha uma das opções para sua viagem:");
+    Console.WriteLine("Escolha uma das opções abaixo:");
     Console.WriteLine("1. Executar Template Method");
     value = Console.Read();
     option = Convert.ToChar(value);
@@ -853,6 +856,51 @@ void VideoPlayerTemplateMethod()
         videoPlayer = new MkvVideo();
 
         videoPlayer.PlayVideo();
+
+        Console.ReadKey();
+    }
+}
+
+void MenuStore()
+{
+    Console.Clear();
+    Console.WriteLine("Escolha uma das opções abaixo:");
+    Console.WriteLine("1. Executar o Padrão visitor");
+    value = Console.Read();
+    option = Convert.ToChar(value);
+}
+
+void StoreVisitor()
+{
+    if (char.IsLetterOrDigit(option))
+    {
+        if (option != '1') return;
+
+        var motorcycles = new List<Motorcycle>
+        {
+            new Motorcycle { Name = "Honda CB 500", Price = 25000, Model = "Honda" },
+            new Motorcycle { Name = "Yamaha MT-03", Price = 30000, Model = "Yamaha" },
+            new Motorcycle { Name = "Kawasaki Ninja 300", Price = 35000, Model = "Kawasaki" }
+        };
+
+        var stores = new List<IStore>();
+
+        Console.WriteLine("Exibindo os preços originais das motos\n");
+
+        foreach (var motorcycle in motorcycles)
+        {
+            Console.WriteLine($"{motorcycle.Model} {motorcycle.Name}: R${ motorcycle.Price }");
+            stores.Add(motorcycle);
+        }
+
+        Console.WriteLine("\nAplicando o Padrão Visitor para calcular o preço com desconto\n");
+
+        var priceVisitor = new PriceVisitor();
+
+        foreach (var store in stores)
+        {
+            store.Visit(priceVisitor);
+        }
 
         Console.ReadKey();
     }
