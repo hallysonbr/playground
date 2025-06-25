@@ -3,7 +3,6 @@ using Praticas.Adapters;
 using Praticas.Commands;
 using Praticas.Composites;
 using Praticas.ConcreteBuilders;
-using Praticas.ConcreteComponents;
 using Praticas.ConcreteDecorators;
 using Praticas.ConcreteHandlers;
 using Praticas.ConcreteImplementors;
@@ -20,13 +19,14 @@ using Praticas.Iterators;
 using Praticas.Leafs;
 using Praticas.Mediators;
 using Praticas.Mementos;
+using Praticas.Menu.Factories;
+using Praticas.Menu.Interfaces;
 using Praticas.Models;
 using Praticas.Observers;
 using Praticas.Proxies;
 using Praticas.RefinedAbstractions;
 using Praticas.States;
 using Praticas.Strategies;
-using Praticas.Subsystems;
 using Praticas.Targets;
 using Praticas.TemplateMethods;
 using Praticas.Visitors;
@@ -36,8 +36,6 @@ char option;
 
 while (true)
 {
-    //MenuPessoa();
-    //MenuStudentFactory();
     //MenuMovie();
     //MenuSoldier();
     //MenuSingleton();
@@ -58,13 +56,30 @@ while (true)
     //MenuAtmMachine();
     //MenuTransportation();
     //MenuVideoPlayer();
-    MenuStore();
+    //MenuStore();
 
-    
+
     try
     {
-        //Pessoa();
-        //StudentFactory();
+        Console.Clear();
+        Console.WriteLine("Escolha um dos Design Patterns abaixo:");
+        Console.WriteLine("1. Simple Factory");
+        Console.WriteLine("2. Abstract Factory");
+
+        string input = Console.ReadLine() ?? string.Empty;
+        if (!string.IsNullOrEmpty(input) && input.Length == 1)
+        {
+            option = input[0];
+
+            var exit = true;
+            do
+            {
+                IMenu item = MenuFactory.GetMenu(option);
+                exit = item.ShowMenu();
+            }
+            while (!exit);
+        }
+
         //MovieBuilder();
         //SoldierPrototype();
         //Singleton();
@@ -85,7 +100,7 @@ while (true)
         //AtmMachineState();
         //TransportationStrategy();
         //VideoPlayerTemplateMethod();
-        StoreVisitor();
+        //StoreVisitor();
     }
     catch (Exception ex)
     {
