@@ -8,7 +8,10 @@ namespace Praticas.Menu.Factories
         private static Dictionary<char, IMenu> Options = new Dictionary<char, IMenu>
         {
             { '1', new FactoryMenu() },
-            { '2', new AbstractFactoryMenu() }
+            { '2', new AbstractFactoryMenu() },
+            { '3', new BuilderMenu() },
+            { '4', new PrototypeMenu() },
+            { '5', new SingletonMenu() },
         };
 
         public static IMenu GetMenu(char option)
