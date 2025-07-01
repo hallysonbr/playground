@@ -1,28 +1,21 @@
 ﻿// See https://aka.ms/new-console-template for more information
-using Praticas.Adapters;
 using Praticas.Commands;
-using Praticas.Composites;
 using Praticas.ConcreteDecorators;
 using Praticas.ConcreteHandlers;
-using Praticas.ConcreteImplementors;
 using Praticas.Facades;
 using Praticas.Flyweights;
 using Praticas.Interpreters.AbstractExpressions;
 using Praticas.Interpreters.ConcreteExpressions;
 using Praticas.Interpreters.Contexts;
 using Praticas.Iterators;
-using Praticas.Leafs;
 using Praticas.Mediators;
 using Praticas.Mementos;
 using Praticas.Menu.Factories;
 using Praticas.Menu.Interfaces;
-using Praticas.Models;
 using Praticas.Observers;
 using Praticas.Proxies;
-using Praticas.RefinedAbstractions;
 using Praticas.States;
 using Praticas.Strategies;
-using Praticas.Targets;
 using Praticas.TemplateMethods;
 using Praticas.Visitors;
 
@@ -31,9 +24,6 @@ char option;
 
 while (true)
 {
-    //MenuHighSchoolStudent();
-    //MenuEmployee();
-    //MenuWorkingHours();
     //MenuCar();
     //MenuLoan();
     //MenuShape();
@@ -60,6 +50,9 @@ while (true)
         Console.WriteLine("3. Builder");
         Console.WriteLine("4. Prototype");
         Console.WriteLine("5. Singleton");
+        Console.WriteLine("6. Adapter");
+        Console.WriteLine("7. Bridge");
+        Console.WriteLine("8. Composite");
 
         string input = Console.ReadLine() ?? string.Empty;
         if (!string.IsNullOrEmpty(input) && input.Length == 1)
@@ -75,9 +68,6 @@ while (true)
             while (!exit);
         }
 
-        //HighSchoolStudentAdapter();
-        //EmployeeBridge();
-        //WorkingHoursComposite();
         //CarDecorator();
         //LoanFacade();
         //ShapeFlyweight();
@@ -97,121 +87,6 @@ while (true)
     catch (Exception ex)
     {
         Console.WriteLine($"Erro: {ex.Message}");
-        Console.ReadKey();
-    }
-}
-
-void MenuHighSchoolStudent()
-{
-    Console.Clear();
-    Console.WriteLine("Escolha uma das opções abaixo:");
-    Console.WriteLine("1. Processar mensalidade");
-    value = Console.Read();
-    option = Convert.ToChar(value);
-}
-
-void HighSchoolStudentAdapter()
-{
-    if (char.IsLetterOrDigit(option))
-    {
-        if (option != '1') return;
-
-        var students = new string[4, 4]
-        {
-            { Guid.NewGuid().ToString(), "João", "Matemática", "100" },
-            { Guid.NewGuid().ToString(), "Maria", "Física", "200" },
-            { Guid.NewGuid().ToString(), "Joana", "Português", "300" },
-            { Guid.NewGuid().ToString(), "José", "Química", "400" }
-        };
-
-        Console.WriteLine("Processando mensalidade...");
-
-        IHighSchoolStudentTarget studentAdapter = new HighSchoolStudentAdapter();
-        studentAdapter.ProcessMonthlyFee(students);
-
-        Console.WriteLine("Mensalidades processadas!");
-        Console.ReadKey();
-    }
-}
-
-void MenuEmployee()
-{
-    Console.Clear();
-    Console.WriteLine("Escolha uma das opções abaixo:");
-    Console.WriteLine("1. Gravar Arquivo json");
-    Console.WriteLine("2. Gravar Arquivo xml");
-    value = Console.Read();
-    option = Convert.ToChar(value);
-}
-
-void EmployeeBridge()
-{
-    if (char.IsLetterOrDigit(option))
-    {
-        if (option != '1' && option != '2') return;
-
-        CalculateSalary calculateSalary;
-       
-        switch (option)
-        {
-            case '1':
-                calculateSalary = new CalculateSalary(new WriteJson());
-                break;
-            case '2':
-                calculateSalary = new CalculateSalary(new WriteXml());
-                break;
-            default:
-                calculateSalary = new CalculateSalary(new WriteJson());
-                break;
-        }
-
-        var employee = new Employee
-        {
-            Id = Guid.NewGuid(),
-            Name = "João",
-            BaseSalary = 1000,
-            Gratification = option == '1' ? 700 : 800
-        };
-
-        calculateSalary.ProcessSalary(employee);
-
-        Console.ReadKey();
-    }
-}
-
-void MenuWorkingHours()
-{
-    Console.Clear();
-    Console.WriteLine("Escolha uma das opções abaixo:");
-    Console.WriteLine("1. Gerar Horas Trabalhadas por Departamento");
-    value = Console.Read();
-    option = Convert.ToChar(value);
-}
-
-void WorkingHoursComposite()
-{
-    if (char.IsLetterOrDigit(option))
-    {
-        if (option != '1') return;
-
-        var organization = new Organization { Name = "Empresa X" };
-
-        var departamentIT = new Organization { Name = "Departamento de TI" };
-
-        departamentIT.Add(new WorkingEmployee { Id = Guid.NewGuid(), Name = "João", Hours = 8 });
-        departamentIT.Add(new WorkingEmployee { Id = Guid.NewGuid(), Name = "Maria", Hours = 12 });
-        departamentIT.Add(new WorkingEmployee { Id = Guid.NewGuid(), Name = "Joana", Hours = 10 });
-
-        var departamentHR = new Organization { Name = "Departamento de RH" };
-
-        departamentHR.Add(new WorkingEmployee { Id = Guid.NewGuid(), Name = "Jessé", Hours = 6 });
-        departamentHR.Add(new WorkingEmployee { Id = Guid.NewGuid(), Name = "Alberto", Hours = 9 });
-        departamentHR.Add(new WorkingEmployee { Id = Guid.NewGuid(), Name = "Cassia", Hours = 5 });
-
-        organization.Add(departamentIT);
-        organization.Add(departamentHR);
-        organization.GetWorkingHours();
-        
         Console.ReadKey();
     }
 }

@@ -12,6 +12,9 @@ namespace Praticas.Menu.Factories
             { '3', new BuilderMenu() },
             { '4', new PrototypeMenu() },
             { '5', new SingletonMenu() },
+            { '6', new AdapterMenu() },
+            { '7', new BridgeMenu() },
+            { '8', new CompositeMenu() }
         };
 
         public static IMenu GetMenu(char option)
