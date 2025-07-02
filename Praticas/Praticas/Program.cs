@@ -24,9 +24,6 @@ char option;
 
 while (true)
 {
-    //MenuCar();
-    //MenuLoan();
-    //MenuShape();
     //MenuSharedFolder();
     //MenuDayOff();
     //MenuRestaurant();
@@ -53,24 +50,22 @@ while (true)
         Console.WriteLine("6. Adapter");
         Console.WriteLine("7. Bridge");
         Console.WriteLine("8. Composite");
+        Console.WriteLine("9. Decorator");
+        Console.WriteLine("10. Facade");
+        Console.WriteLine("11. Flyweight");
 
         string input = Console.ReadLine() ?? string.Empty;
-        if (!string.IsNullOrEmpty(input) && input.Length == 1)
+        if (!string.IsNullOrEmpty(input) && input.Length <= 2)
         {
-            option = input[0];
-
             var exit = true;
             do
             {
-                IMenu item = MenuFactory.GetMenu(option);
+                IMenu item = MenuFactory.GetMenu(input.Trim());
                 exit = item.ShowMenu();
             }
             while (!exit);
         }
 
-        //CarDecorator();
-        //LoanFacade();
-        //ShapeFlyweight();
         //SharedFolderProxy();
         //DayOffChainOfResponsibility();
         //RestaurantCommand();
@@ -87,95 +82,6 @@ while (true)
     catch (Exception ex)
     {
         Console.WriteLine($"Erro: {ex.Message}");
-        Console.ReadKey();
-    }
-}
-
-void MenuCar()
-{
-    Console.Clear();
-    Console.WriteLine("Escolha uma das opções abaixo:");
-    Console.WriteLine("1. Criar Carro");
-    value = Console.Read();
-    option = Convert.ToChar(value);
-}
-
-void CarDecorator()
-{
-    if (char.IsLetterOrDigit(option))
-    {
-        if (option != '1') return;
-
-        var car = new Praticas.ConcreteComponents.Car();
-        Console.WriteLine("Criando um carro versão básica");
-        Console.WriteLine($"Preço do carro: { car.Price() }");
-        Console.WriteLine($"Opcionais do carro: { car.Optionals() }");
-
-        Console.WriteLine("-----Aplicando o Padrão Decorator-----");
-
-        var car2 = new Praticas.ConcreteComponents.Car();
-        var confortCar = new ConfortCarDecorator(car2);
-
-        Console.WriteLine("Adicionando o pacote confort");
-        Console.WriteLine($"Preço do carro: { confortCar.Price() }");
-        Console.WriteLine($"Opcionais do carro: { confortCar.Optionals() }");
-
-        var sportCar = new SportCarDecorator(confortCar);
-        Console.WriteLine("Adicionando o pacote sport");
-        Console.WriteLine($"Preço do carro: {sportCar.Price()}");
-        Console.WriteLine($"Opcionais do carro: {sportCar.Optionals()}");
-
-        Console.ReadKey();
-    }
-}
-
-void MenuLoan()
-{
-    Console.Clear();
-    Console.WriteLine("Escolha uma das opções abaixo:");
-    Console.WriteLine("1. Conceder Emprestimo");
-    value = Console.Read();
-    option = Convert.ToChar(value);
-}
-
-void LoanFacade()
-{
-    if (char.IsLetterOrDigit(option))
-    {
-        if (option != '1') return;
-        
-        var loan = new GrantLoanFacade();
-        var client = new Praticas.Subsystems.Client("João");
-
-        var result = loan.GrantLoan(client, 1500000.00);
-
-        Console.WriteLine($"The loan requested for {client.Name} was { (result ? "Approved" : "Rejected") }");
-        Console.ReadKey();
-    }
-}
-
-void MenuShape()
-{
-    Console.Clear();
-    Console.WriteLine("Escolha uma das opções abaixo:");
-    Console.WriteLine("1. Criar circulos de variadas cores.");
-    value = Console.Read();
-    option = Convert.ToChar(value);
-}
-
-void ShapeFlyweight()
-{
-    if (char.IsLetterOrDigit(option))
-    {
-        if (option != '1') return;
-
-        var colors = new[] { "Red", "Green", "Blue", "Black", "White" };
-        for (int i = 0; i < 10; i++)
-        {
-            var circle = (Circle)ShapeFactory.GetShape("circle");
-            circle.SetColor(colors[i % colors.Length]);
-            circle.Draw();
-        }
         Console.ReadKey();
     }
 }
