@@ -1,9 +1,4 @@
 ﻿// See https://aka.ms/new-console-template for more information
-using Praticas.Commands;
-using Praticas.ConcreteDecorators;
-using Praticas.ConcreteHandlers;
-using Praticas.Facades;
-using Praticas.Flyweights;
 using Praticas.Interpreters.AbstractExpressions;
 using Praticas.Interpreters.ConcreteExpressions;
 using Praticas.Interpreters.Contexts;
@@ -13,7 +8,6 @@ using Praticas.Mementos;
 using Praticas.Menu.Factories;
 using Praticas.Menu.Interfaces;
 using Praticas.Observers;
-using Praticas.Proxies;
 using Praticas.States;
 using Praticas.Strategies;
 using Praticas.TemplateMethods;
@@ -24,9 +18,6 @@ char option;
 
 while (true)
 {
-    //MenuSharedFolder();
-    //MenuDayOff();
-    //MenuRestaurant();
     //MenuDate();
     //MenuClient();
     //MenuMessageGroup();
@@ -53,6 +44,9 @@ while (true)
         Console.WriteLine("9. Decorator");
         Console.WriteLine("10. Facade");
         Console.WriteLine("11. Flyweight");
+        Console.WriteLine("12. Proxy");
+        Console.WriteLine("13. Chain Of Responsibility");
+        Console.WriteLine("14. Command");
 
         string input = Console.ReadLine() ?? string.Empty;
         if (!string.IsNullOrEmpty(input) && input.Length <= 2)
@@ -66,9 +60,6 @@ while (true)
             while (!exit);
         }
 
-        //SharedFolderProxy();
-        //DayOffChainOfResponsibility();
-        //RestaurantCommand();
         //DateInterpreter();
         //ClientIterator();
         //MessageGroupMediator();
@@ -82,103 +73,6 @@ while (true)
     catch (Exception ex)
     {
         Console.WriteLine($"Erro: {ex.Message}");
-        Console.ReadKey();
-    }
-}
-
-void MenuSharedFolder()
-{
-    Console.Clear();
-    Console.WriteLine("Escolha uma das opções abaixo:");
-    Console.WriteLine("1. Acessar pasta compartilhada.");
-    value = Console.Read();
-    option = Convert.ToChar(value);
-}
-
-void SharedFolderProxy()
-{
-    if (char.IsLetterOrDigit(option))
-    {
-        if (option != '1') return;
-
-        Console.WriteLine("Acessando pasta compartilhada...");
-
-        Console.WriteLine("Perfil Desenvolvedor tentanto acessar a pasta...");
-        var user1 = new Praticas.Proxies.User("João", "123456", "desenvolvedor");
-        var sharedFolder1 = new SharedFolderProxy(user1);
-        sharedFolder1.ReadAndWrite();
-
-        Console.WriteLine("Perfil Visitante tentanto acessar a pasta...");
-        var user2 = new Praticas.Proxies.User("Maria", "654321", "visitante");
-        var sharedFolder2 = new SharedFolderProxy(user2);
-        sharedFolder2.ReadAndWrite();
-
-        Console.WriteLine("Perfil Administrador tentanto acessar a pasta...");
-        var user3 = new Praticas.Proxies.User("José", "789456", "admin");
-        var sharedFolder3 = new SharedFolderProxy(user3);
-        sharedFolder3.ReadAndWrite();
-
-        Console.ReadKey();
-    }
-}
-
-void MenuDayOff()
-{
-    Console.Clear();
-    Console.WriteLine("Escolha uma das opções abaixo:");
-    Console.WriteLine("1. Solicitar dias de licença.");
-    value = Console.Read();
-    option = Convert.ToChar(value);
-}
-
-void DayOffChainOfResponsibility()
-{
-    if (char.IsLetterOrDigit(option))
-    {
-        if (option != '1') return;
-
-        ProjectManager projectManager = new ();
-        TeamSupervisor teamSupervisor = new();
-        HRDepartment hRDepartment = new();
-
-        projectManager
-            .SetNext(teamSupervisor)
-            .SetNext(hRDepartment);
-
-        projectManager.Handle("Ana", 5);
-        projectManager.Handle("João", 10);
-        projectManager.Handle("Maria", 20);
-        projectManager.Handle("Alberto", 40);
-
-        Console.ReadKey();
-    }
-}
-
-void MenuRestaurant()
-{
-    Console.Clear();
-    Console.WriteLine("Escolha uma das opções abaixo:");
-    Console.WriteLine("1. Fazer pedido.");
-    value = Console.Read();
-    option = Convert.ToChar(value);
-}
-
-void RestaurantCommand()
-{
-    if (char.IsLetterOrDigit(option))
-    {
-        if (option != '1') return;
-
-        var chef = new Chef();
-        
-        var order = new Order(chef, "Meal");
-        var waiter = new Waiter(order);
-        waiter.Execute();
-
-        order = new Order(chef, "Dessert");
-        waiter = new Waiter(order);
-        waiter.Execute();
-
         Console.ReadKey();
     }
 }

@@ -17,7 +17,10 @@ namespace Praticas.Menu.Factories
             { "8", new CompositeMenu() },
             { "9", new DecoratorMenu() },
             { "10", new FacadeMenu() },
-            { "11", new FlyweightMenu() }
+            { "11", new FlyweightMenu() },
+            { "12", new ProxyMenu() },
+            { "13", new ChainOfResponsibilityMenu() },
+            { "14", new CommandMenu() },
         };
 
         public static IMenu GetMenu(string option)
