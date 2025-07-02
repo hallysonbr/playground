@@ -18,9 +18,6 @@ char option;
 
 while (true)
 {
-    //MenuDate();
-    //MenuClient();
-    //MenuMessageGroup();
     //MenuCalculator();
     //MenuNotification();
     //MenuAtmMachine();
@@ -47,6 +44,9 @@ while (true)
         Console.WriteLine("12. Proxy");
         Console.WriteLine("13. Chain Of Responsibility");
         Console.WriteLine("14. Command");
+        Console.WriteLine("15. Interpreter");
+        Console.WriteLine("16. Iterator");
+        Console.WriteLine("17. Mediator");
 
         string input = Console.ReadLine() ?? string.Empty;
         if (!string.IsNullOrEmpty(input) && input.Length <= 2)
@@ -60,9 +60,6 @@ while (true)
             while (!exit);
         }
 
-        //DateInterpreter();
-        //ClientIterator();
-        //MessageGroupMediator();
         //CalculatorMemento();
         //NotificationObserver();
         //AtmMachineState();
@@ -73,129 +70,6 @@ while (true)
     catch (Exception ex)
     {
         Console.WriteLine($"Erro: {ex.Message}");
-        Console.ReadKey();
-    }
-}
-
-void MenuDate()
-{
-    Console.Clear();
-    Console.WriteLine("Escolha uma das opções abaixo:");
-    Console.WriteLine("1. Data no formato MM-DD-YYYY");
-    Console.WriteLine("2. Data no formato DD-MM-YYYY");
-    Console.WriteLine("3. Data no formato YYYY-MM-DD");
-    value = Console.Read();
-    option = Convert.ToChar(value);
-}
-
-void DateInterpreter()
-{
-    if (char.IsLetterOrDigit(option))
-    {
-        if (option != '1' && option != '2' && option != '3') return;
-
-        List<IDateAbstractExpression> expressions = new List<IDateAbstractExpression>();
-
-        var dateOption = option == '1' ? "MM-DD-YYYY" : option == '2' ? "DD-MM-YYYY" : "YYYY-MM-DD";
-
-        var context = new DateContext(DateTime.Now);
-
-        Console.WriteLine($"Data atual: {context.Date}");
-
-        context.Expression = dateOption;
-
-        var formats = context.Expression.Split('-');
-
-        foreach (var format in formats)
-        {
-            switch (format)
-            {
-                case "MM":
-                    expressions.Add(new MonthExpression());
-                    break;
-                case "DD":
-                    expressions.Add(new DayExpression());
-                    break;
-                case "YYYY":
-                    expressions.Add(new YearExpression());
-                    break;
-                default:
-                    throw new NotImplementedException("Format not implemented.");
-            }
-        }
-
-        expressions.Add(new SeparatorExpression());
-
-        expressions.ForEach(x => x.Interpret(context));
-
-        Console.WriteLine($"Data na expressão selecionada: {context.Expression}");
-        Console.ReadKey();
-    }
-}
-
-void MenuClient()
-{
-    Console.Clear();
-    Console.WriteLine("Escolha uma das opções abaixo:");
-    Console.WriteLine("1. Criar Cliente com Iterator");
-    value = Console.Read();
-    option = Convert.ToChar(value);
-}
-
-void ClientIterator()
-{
-    if (char.IsLetterOrDigit(option))
-    {
-        if (option != '1') return;
-
-        var collection = new ConcreteCollection();
-
-        collection.Add(new Praticas.Iterators.Client(1, "João"));
-        collection.Add(new Praticas.Iterators.Client(2, "Maria"));
-        collection.Add(new Praticas.Iterators.Client(3, "José"));
-
-        var iterator = collection.CreateIterator();
-
-        Console.WriteLine("Iterando sobre os clientes:");
-
-        for (var client = iterator.First(); !iterator.IsDone; client = iterator.Next())
-        {
-            Console.WriteLine($"Nome: {client.Name}, Id: {client.Id}");
-        }
-
-        Console.ReadKey();
-    }
-}
-
-void MenuMessageGroup()
-{
-    Console.Clear();
-    Console.WriteLine("Escolha uma das opções abaixo:");
-    Console.WriteLine("1. Iniciar conversas no grupo");
-    value = Console.Read();
-    option = Convert.ToChar(value);
-}
-
-void MessageGroupMediator()
-{
-    if (char.IsLetterOrDigit(option))
-    {
-        if (option != '1') return;
-
-        var group = new ConcreteMessageGroupMediator();
-
-        var user1 = new ConcreteUser(group, "João");
-        var user2 = new ConcreteUser(group, "Maria");
-        var user3 = new ConcreteUser(group, "José");
-
-        group.RegisterUser(user1);
-        group.RegisterUser(user2);
-        group.RegisterUser(user3);
-
-        user1.Send("Olá, pessoal!");
-        user2.Send("Oi, João!");
-        user3.Send("Oi, Maria!");
-
         Console.ReadKey();
     }
 }

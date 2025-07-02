@@ -1,5 +1,4 @@
-﻿using Praticas.Factories;
-using Praticas.Menu.Interfaces;
+﻿using Praticas.Menu.Interfaces;
 
 namespace Praticas.Menu.Abstractions
 {

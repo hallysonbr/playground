@@ -21,6 +21,9 @@ namespace Praticas.Menu.Factories
             { "12", new ProxyMenu() },
             { "13", new ChainOfResponsibilityMenu() },
             { "14", new CommandMenu() },
+            { "15", new InterpreterMenu() },
+            { "16", new IteratorMenu() },
+            { "17", new MediatorMenu() },
         };
 
         public static IMenu GetMenu(string option)
