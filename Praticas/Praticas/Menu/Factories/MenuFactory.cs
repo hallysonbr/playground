@@ -24,6 +24,9 @@ namespace Praticas.Menu.Factories
             { "15", new InterpreterMenu() },
             { "16", new IteratorMenu() },
             { "17", new MediatorMenu() },
+            { "18", new MementoMenu() },
+            { "19", new ObserverMenu() },
+            { "20", new StateMenu() },
         };
 
         public static IMenu GetMenu(string option)

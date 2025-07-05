@@ -1,14 +1,6 @@
 ﻿// See https://aka.ms/new-console-template for more information
-using Praticas.Interpreters.AbstractExpressions;
-using Praticas.Interpreters.ConcreteExpressions;
-using Praticas.Interpreters.Contexts;
-using Praticas.Iterators;
-using Praticas.Mediators;
-using Praticas.Mementos;
 using Praticas.Menu.Factories;
 using Praticas.Menu.Interfaces;
-using Praticas.Observers;
-using Praticas.States;
 using Praticas.Strategies;
 using Praticas.TemplateMethods;
 using Praticas.Visitors;
@@ -18,13 +10,9 @@ char option;
 
 while (true)
 {
-    //MenuCalculator();
-    //MenuNotification();
-    //MenuAtmMachine();
     //MenuTransportation();
     //MenuVideoPlayer();
     //MenuStore();
-
 
     try
     {
@@ -47,6 +35,9 @@ while (true)
         Console.WriteLine("15. Interpreter");
         Console.WriteLine("16. Iterator");
         Console.WriteLine("17. Mediator");
+        Console.WriteLine("18. Memento");
+        Console.WriteLine("19. Observer");
+        Console.WriteLine("20. State");
 
         string input = Console.ReadLine() ?? string.Empty;
         if (!string.IsNullOrEmpty(input) && input.Length <= 2)
@@ -60,9 +51,6 @@ while (true)
             while (!exit);
         }
 
-        //CalculatorMemento();
-        //NotificationObserver();
-        //AtmMachineState();
         //TransportationStrategy();
         //VideoPlayerTemplateMethod();
         //StoreVisitor();
@@ -70,115 +58,6 @@ while (true)
     catch (Exception ex)
     {
         Console.WriteLine($"Erro: {ex.Message}");
-        Console.ReadKey();
-    }
-}
-
-void MenuCalculator()
-{
-    Console.Clear();
-    Console.WriteLine("Escolha uma das opções abaixo:");
-    Console.WriteLine("1. Calcular a soma de dois números e armazenar o estado");
-    value = Console.Read();
-    option = Convert.ToChar(value);
-}
-
-void CalculatorMemento()
-{
-    if (char.IsLetterOrDigit(option))
-    {
-        if (option != '1') return;
-
-        Console.WriteLine("Calculando a soma de dois números e armazenando o estado...");
-
-        var calculator = new Calculator();
-        calculator.SetFirstNumber(10);
-        calculator.SetSecondNumber(20);
-
-        Console.WriteLine($"Estado 1: {calculator.GetCalculationResult()}");
-
-        var memento = calculator.BackupLastCalculation();
-
-        Console.WriteLine("Calculando a soma de dois números e armazenando o estado...");
-
-        calculator.SetFirstNumber(30);
-        calculator.SetSecondNumber(40);
-
-        Console.WriteLine($"Estado 2: {calculator.GetCalculationResult()}");
-
-        Console.WriteLine("Restaurando o estado anterior...");
-
-        calculator.RestoreLastCalculation(memento);
-
-        Console.WriteLine($"Estado restaurado: {calculator.GetCalculationResult()}");
-        Console.ReadKey();
-    }
-}
-
-void MenuNotification()
-{
-    Console.Clear();
-    Console.WriteLine("Escolha uma das opções abaixo:");
-    Console.WriteLine("1. Enviar notificação");
-    value = Console.Read();
-    option = Convert.ToChar(value);
-}
-
-void NotificationObserver()
-{
-    if (char.IsLetterOrDigit(option))
-    {
-        if (option != '1') return;
-
-        var product = new ConcreteSubject("Iphone 11", 2500, "Esgotado");
-
-        Console.WriteLine($"Produto: {product.Product} - Preço: {product.Price} - Current Status: { product.GetStatus() }");
-
-        var user1 = new ConcreteObserver("Hallyson", product);
-        var user2 = new ConcreteObserver("Maria", product);
-        var user3 = new ConcreteObserver("José", product);
-        var user4 = new ConcreteObserver("Alberto", product);
-
-
-        Console.WriteLine("Alterando o estado do produto...\n");
-
-        product.SetStatus("Em estoque"); 
-
-        Console.ReadKey();
-    }
-}
-
-void MenuAtmMachine()
-{
-    Console.Clear();
-    Console.WriteLine("Escolha uma das opções abaixo:");
-    Console.WriteLine("1. Iniciar caixa eletrônico");
-    value = Console.Read();
-    option = Convert.ToChar(value);
-}
-
-void AtmMachineState()
-{
-    if (char.IsLetterOrDigit(option))
-    {
-        if (option != '1') return;
-
-        var atmMachine = new AtmMachine();
-
-        Console.WriteLine($"Iniciando caixa eletrônico. Estado atual: { atmMachine.GetCurrentState().GetType().Name }");
-
-        atmMachine.EnterPin();
-        atmMachine.RequestCash();
-        atmMachine.EjectCard();
-        atmMachine.InsertCard();
-
-        Console.WriteLine();
-
-        atmMachine.EnterPin();
-        atmMachine.RequestCash();
-        atmMachine.InsertCard();
-        atmMachine.EjectCard();
-
         Console.ReadKey();
     }
 }
