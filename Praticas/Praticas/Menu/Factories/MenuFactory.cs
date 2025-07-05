@@ -27,6 +27,9 @@ namespace Praticas.Menu.Factories
             { "18", new MementoMenu() },
             { "19", new ObserverMenu() },
             { "20", new StateMenu() },
+            { "21", new StrategyMenu() },
+            { "22", new TemplateMethodMenu() },
+            { "23", new VisitorMenu() },
         };
 
         public static IMenu GetMenu(string option)
