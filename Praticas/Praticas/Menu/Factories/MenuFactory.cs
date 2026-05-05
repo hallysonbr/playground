@@ -30,6 +30,7 @@ namespace Praticas.Menu.Factories
             { "21", new StrategyMenu() },
             { "22", new TemplateMethodMenu() },
             { "23", new VisitorMenu() },
+            { "24", new PalindromeMenu() },
         };
 
         public static IMenu GetMenu(string option)

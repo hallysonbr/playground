@@ -31,6 +31,7 @@ while (true)
         Console.WriteLine("21. Strategy");
         Console.WriteLine("22. Template Method");
         Console.WriteLine("23. Visitor");
+        Console.WriteLine("24. Palíndromo");
 
         string input = Console.ReadLine() ?? string.Empty;
         if (!string.IsNullOrEmpty(input) && input.Length <= 2)
